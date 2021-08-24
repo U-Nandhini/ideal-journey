@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		
+		<title>API LIST</title>
+		
+	 <script src="API.js"></script>
+	 <link rel="stylesheet" href="API.css">	
+	 <script src="https://kit.fontawesome.com/7a178e25f8.js" crossorigin="anonymous"></script>
+	</head>
+<body>
+	<h2>User Detail</h2><br>
+	<label> FILTER BY STATUS : </label>
+	<select id="mylist" oninput="Table()" >
+		<option value= "All">    All       </option>
+		<option value= "active"> ACTIVE    </option>
+		<option value= "inactive">INACTIVE </option>
+	</select>
+	<input type ="text" name ="search" id="Sinput" onkeyup="searchUser()" placeholder="Search by user" 
+		    onfocus="this.placeholder=''">
+		
+	<button onclick="window.location.href='Update.html'">CREATE NEW USER</button>
+		<table id="Details"  ></table>
+</body>
+</html> 

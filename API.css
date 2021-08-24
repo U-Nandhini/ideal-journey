@@ -1,0 +1,76 @@
+body{
+  counter-reset: Serial;
+}
+tr td:first-child:before
+{
+  counter-increment: Serial;      
+  content: counter(Serial);
+ text-align: center;
+}
+#a{display: none;}
+#b{text-align: center;
+}
+table {
+    border-collapse: collapse;
+    width:100%;
+    border-top: 25px;
+}
+i{padding:0px 20px 0px 20px ;
+  color : darkblue;
+  font-size: 20px;
+}
+tr:nth-child(odd){
+  background-color:#66D3FA;
+}
+tr:nth-child(even){
+  background-color:#D5F3FE;
+}
+th{
+  color:white;
+  background-color: #0F5298;
+  font-weight: bold;
+  padding: 5px;
+  border: 1px solid black;
+}
+td { 
+  padding: 6px;
+  border: 1px solid black;
+}
+label{
+  width: 100px;
+  font-size: large;
+  font-weight: bold;
+  padding: 0px 0px 10px 0px
+  }
+select{
+  width  :200px; 
+  height: 30px;
+  background-color: #0F5298;
+  font-size: 15px;
+  color: white;
+  margin-bottom: 10px;
+  text-align: center;
+  }
+button{ background-color: #0F5298;
+  font-size: 15px;
+  color:white;
+  border: 2px black;
+  height: 30px;
+  width  :200px;
+}
+input{
+  background-color:#D5F3FE;
+  font-size: 15px;
+  color:black;
+  border: 2px black;
+  height: 30px;
+  width  :500px;
+}
+::placeholder{
+  text-align: center;
+  color:black
+}
+
+      
+        
+
