@@ -26,7 +26,7 @@ submitLogin(e) {
         inputs["username"] = "";
         inputs["password"] = "";
         this.setState({inputs : inputs});
-        alert("Login SuccessFUl");
+        this.props.history.push(/Registration)
     }
 
   }
