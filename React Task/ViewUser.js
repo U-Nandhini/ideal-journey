@@ -23,28 +23,16 @@ const User = () => {
     <div>
       <h1>User Id: {id}</h1>
       <hr />
-      <table className="viewTable">
-        <tr>
-          <td>ID</td>
-          <td>{user.id}</td>
-        </tr>
-        <tr>
-          <td>Name</td>
-          <td>{user.name}</td>
-        </tr>
-        <tr>
-          <td>Gender</td>
-          <td>{user.gender}</td>
-        </tr>
-        <tr>
-          <td>Email</td>
-          <td>{user.email}</td>
-        </tr>
-        <tr>
-          <td>Status</td>
-          <td>{user.status}</td>
-        </tr>
-      </table>
+      <div className="containerList">
+      <h1 className="displayID">User Id: {id}</h1>
+      <hr />
+    <ul class="text">
+      <li className="listUser">User ID : {user.id}</li>
+      <li className="listUser">User name:{user.name}</li>
+      <li className="listUser">Email ID:{user.email}</li>
+      <li className="listUser"> Gender:{user.gender}</li>
+      <li className="listUser">Status:{user.status}</li>
+    </ul>
     </div>
   );
 };
