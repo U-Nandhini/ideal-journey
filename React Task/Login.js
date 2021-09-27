@@ -1,83 +1,112 @@
-import React from 'react';
+import React from "react";
+import { Link, withRouter } from "react-router-dom";
+import {
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Avatar,
+} from "@material-ui/core";
+//import FormControlLabel from '@material-ui/core/FormControlLabel';
+const paperStyle = {
+  padding: 40,
+  height: "50vh",
+  width: 280,
+  margin: "100px auto",
+};
+const avatarStyle = { backgroundColor: "#1bbd7e" };
+const btnstyle = { margin: "8px 0" };
 
 class LoginForm extends React.Component {
-    constructor() {
-      super();
-      this.state = {
-        fields: {},
-        errors: {}
-      }
-
-      this.handleChange = this.handleChange.bind(this);
-      this.submitLogin = this.submitLogin.bind(this);
-
+  constructor() {
+    super();
+    this.state = {
+      fields: {},
+      errors: {},
     };
 
-    handleChange(event) {
-        let inputs = this.state.inputs;
-        inputs[event.target.name] = event.target.value;
-        this.setState({ inputs });
-  }  
-  
-submitLogin(e) {
-    e.preventDefault();
-    if (this.validateForm()) {
-        let inputs = {};
-        inputs["username"] = "";
-        inputs["password"] = "";
-        this.setState({inputs : inputs});
-        this.props.history.push(/Registration)
-    }
-
+    this.handleChange = this.handleChange.bind(this);
+    this.SubmitLogin = this.SubmitLogin.bind(this);
   }
+  handleChange(event) {
+    let fields = this.state.fields;
+    fields[event.target.name] = event.target.value;
+    this.setState({
+      fields,
+    });
+  }
+  SubmitLogin(event) {
+    event.preventDefault();
 
+    this.props.history.push("/UserDetails");
+  }
   validateForm() {
-
-    let inputs = this.state.inputs;
+    let fields = this.state.fields;
     let errors = {};
     let formIsValid = true;
 
-    if (!inputs["username"]) {
+    if (!fields["username"]) {
       formIsValid = false;
-      errors["username"] = "**Please enter your username.";
+      errors["username"] = "*Please enter your username.";
     }
- 
- if (!inputs["password"]) {
-    formIsValid = false;
-    errors["password"] = "*Please enter your password.";
+
+    if (!fields["password"]) {
+      formIsValid = false;
+      errors["password"] = "*Please enter your password.";
+    }
+
+    this.setState({
+      errors: errors,
+    });
+    return formIsValid;
   }
 
-this.setState({
-    errors: errors
-  });
-  return formIsValid;
-
-  }
-
-
-render()
- {
+  render() {
     return (
-    <div id="login-main">
-     <div id="loginPage">
+      <Grid>
+        <Paper elevation={10} style={paperStyle}>
+          <Grid align="center">
+            <h2>Sign In</h2>
+          </Grid>
+          <TextField
+            label="username"
+            onChange={this.handleChange}
+            value={this.state.fields.username}
+            placeholder="Enter username"
+            fullWidth
+            required
+          />
+          <div className="errorMsg">{this.state.errors.username}</div>
+          <TextField
+            label="password"
+            onChange={this.handleChange}
+            value={this.state.fields.password}
+            placeholder="Enter password"
+            type="password"
+            fullWidth
+            required
+          />
+          <div className="errorMsg">{this.state.errors.password}</div>
 
-        <h1>Registration page</h1>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            style={btnstyle}
+            fullWidth
+            onClick={this.SubmitLogin}
+          >
+            Sign in
+          </Button>
 
-        <form method="post"  name="userLogin"  onSubmit= {this.submitLogin} >
-
-        <label>Name</label>
-        <input type="text" name="username" value={this.state.inputs.username} onChange={this.handleChange} />
-        <div className="errorMsg">{this.state.errors.username}</div>
-
-        <label>Password</label>
-        <input type="password" name="password" value={this.state.inputs.password} onChange={this.handleChange} />
-        <div className="errorMsg">{this.state.errors.password}</div>
-
-        <input type="submit" className="button"  value="Login"/>
-    </form>
-    </div>
-    </div>)
-    }
-    }
-
-      export default LoginForm;
+          <Typography>
+            {" "}
+            Do you have an account ?<Link to="/Registration">Sign Up</Link>
+          </Typography>
+        </Paper>
+      </Grid>
+    );
+  }
+}
+export default withRouter(LoginForm);
