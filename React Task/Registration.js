@@ -1,40 +1,56 @@
-import React from 'react';
+import React from "react";
 
-class RegisterForm extends React.Component {
-    constructor() {
-      super();
-      this.state = {
-        inputs: {},
-        errors: {}
-      }
+import { Link } from "react-router-dom";
+import {
+  Grid,
+  Paper,
+  TextField,
+  Button,
+  Typography,
+  Avatar,
+} from "@material-ui/core";
 
-      this.handleChange = this.handleChange.bind(this);
-      this.submitRegistration = this.submitRegistration.bind(this);
+const paperStyle = {
+  padding: 40,
+  height: "50vh",
+  width: 400,
+  margin: "100px auto",
+};
+const avatarStyle = { backgroundColor: "#1bbd7e" };
+const btnstyle = { margin: "8px 0" };
 
+class Registration extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      inputs: {},
+      errors: {},
     };
 
-handleChange(event) {
-        let inputs = this.state.inputs;
-        inputs[event.target.name] = event.target.value;
-        this.setState({ inputs });
-  }  
-  
-submitRegistration(event) {
+    this.handleChange = this.handleChange.bind(this);
+    this.submitRegistration = this.submitRegistration.bind(this);
+  }
+
+  handleChange(event) {
+    let inputs = this.state.inputs;
+    inputs[event.target.name] = event.target.value;
+    this.setState({ inputs });
+  }
+
+  submitRegistration(event) {
     event.preventDefault();
     if (this.validateForm()) {
-        let inputs = {};
-        inputs["username"] = "";
-        inputs["emailid"] = "";
-        inputs["mobileno"] = "";
-        inputs["password"] = "";
-        this.setState({inputs : inputs});
-        alert("Form submitted");
+      let inputs = {};
+      inputs["username"] = "";
+      inputs["emailid"] = "";
+      inputs["mobileno"] = "";
+      inputs["password"] = "";
+      this.setState({ inputs: inputs });
+      alert("Form submitted");
     }
+  }
 
-}
-
-validateForm() {
-
+  validateForm() {
     let inputs = this.state.inputs;
     let errors = {};
     let formIsValid = true;
@@ -57,8 +73,7 @@ validateForm() {
     }
 
     if (typeof inputs["emailid"] !== "undefined") {
-      
-      var pattern = new RegExp(/^([a-zA-Z0-9\._]+)@(gmail).(com)$/)
+      var pattern = new RegExp(/^([a-zA-Z0-9\._]+)@(gmail).(com)$/);
       if (!pattern.test(inputs["emailid"])) {
         formIsValid = false;
         errors["emailid"] = "*Please enter valid email-ID.";
@@ -83,50 +98,92 @@ validateForm() {
     }
 
     if (typeof inputs["password"] !== "undefined") {
-      if (!inputs["password"].match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+      if (
+        !inputs["password"].match(
+          /^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/
+        )
+      ) {
         formIsValid = false;
         errors["password"] = "*Please enter secure and strong password.";
       }
     }
 
     this.setState({
-      errors: errors
+      errors: errors,
     });
     return formIsValid;
-
-
   }
 
   render() {
     return (
-    <div id="main-registration">
-     <div id="register">
+      <Grid>
+        <Paper elevation={10} style={paperStyle}>
+          <Grid align="center">
+            <h2>Sign UP</h2>
+          </Grid>
+          <TextField
+            label="Name"
+            onChange={this.handleChange}
+            onBlur={this.handleChange}
+            value={this.state.inputs.username}
+            placeholder="Enter username"
+            fullWidth
+            required
+          />
+          <div className="errorMsg">{this.state.errors.username}</div>
 
-        <h1>Registration page</h1>
+          <TextField
+            label="password"
+            onChange={this.handleChange}
+            onBlur={this.handleChange}
+            value={this.state.inputs.password}
+            placeholder="Enter password"
+            type="password"
+            fullWidth
+            required
+          />
+          <div className="errorMsg">{this.state.errors.password}</div>
 
-        <form method="post"  name="userRegistrationForm"  onSubmit= {this.submituserRegistrationForm} >
+          <TextField
+            label="EMail ID"
+            onChange={this.handleChange}
+            onBlur={this.handleChange}
+            value={this.state.inputs.emailid}
+            placeholder="Enter EmailID"
+            fullWidth
+            required
+          />
+          <div className="errorMsg">{this.state.errors.emailid}</div>
 
-        <label>Name</label>
-        <input type="text" name="username" value={this.state.inputs.username} onChange={this.handleChange} />
-        <div className="errorMsg">{this.state.errors.username}</div>
+          <TextField
+            label="Mobile Number"
+            onChange={this.handleChange}
+            onBlur={this.handleChange}
+            value={this.state.inputs.mobileno}
+            placeholder="Enter MobileNumber"
+            fullWidth
+            required
+          />
+          <div className="errorMsg">{this.state.errors.mobileno}</div>
 
-        <label>Password</label>
-        <input type="password" name="password" value={this.state.inputs.password} onChange={this.handleChange} />
-        <div className="errorMsg">{this.state.errors.password}</div>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            style={btnstyle}
+            fullWidth
+            onClick={this.submitRegistration}
+          >
+            submit
+          </Button>
 
-        <label>Email ID:</label>
-        <input type="text" name="emailid" value={this.state.inputs.emailid} onChange={this.handleChange}  />
-        <div className="errorMsg">{this.state.errors.emailid}</div>
-
-        <label>Mobile No:</label>
-        <input type="text" name="mobileno" value={this.state.inputs.mobileno} onChange={this.handleChange}   />
-        <div className="errorMsg">{this.state.errors.mobileno}</div>
-
-        <input type="submit" className="button"  value="Register"/>
-
-        </form>
-    </div>
-</div>)
+          <Typography>
+            {" "}
+            Already have an account ?<Link to=" /Login">Sign in</Link>
+          </Typography>
+        </Paper>
+      </Grid>
+    );
   }
 }
-export default RegisterForm;
+export default Registration;
